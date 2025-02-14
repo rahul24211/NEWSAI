@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { motion } from 'motion/react'
 import { Lock, Mail, Eye, EyeOff, Type } from 'lucide-react'
+import { Button } from '@mantine/core'
 
 const Login = () => {
 
@@ -31,11 +32,11 @@ const Login = () => {
 
                         <div onClick={handleEyeClick} className='absolute right-2'>
 
-                            {isEyeOpen ? <Eye/> : <EyeOff/>}
+                            {isEyeOpen ? <Eye/> : <EyeOff/>} 
                         </div>
                         <input type= { isEyeOpen ? "text" : "password" } placeholder='Enter password..' className='focus:outline-none border-b border-gray-200 w-full' />
 
-<h2> hello</h2>
+
                     </div>
 
 
