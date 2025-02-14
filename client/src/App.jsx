@@ -1,11 +1,21 @@
 import React from 'react'
-import { motion } from "motion/react"
+import { Routes, Route } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import Login from './pages/Login'
+
+
 
 const App = () => {
   return (
     <div>
-      <motion.h2 animate={{rotate : 360}} className='text 3xl text-red-500'> india win</motion.h2>
+      <Navbar />
+      <Routes>
+        <Route path='/login' element={<Login/>} />
+      </Routes>
+
     </div>
+
+
   )
 }
 
