@@ -41,11 +41,11 @@ function Navbar() {
         {/* Mobile menu */}
         <div className="flex space-x-4 items-center justify-center">
           <Link to="/login" className="hidden md:block">
-            <button>login</button>
+            <Button variant='white'>login</Button>
           </Link>
 
           <Link to="/register" className="hidden md:block">
-            <button>register</button>
+            <Button variant='white'>register</Button>
           </Link>
 
           {/* Mobile menu button */}
@@ -60,20 +60,38 @@ function Navbar() {
         <div className="md:hidden mt-4 p-4 bg-gray-100">
           <ul className="space-y-4">
             {['Home', 'Categories', 'Channels', 'About'].map((item) => (
-              <li key={item} className="hover:text-gray-700">
+              <motion.li
+                whileHover={{ scale: 1.1 }}
+                transition={{ type: 'spring', stiffness: 100 }}
+                key={item}
+                className="hover:text-gray-700"
+              >
+
+
+
+
                 <Link to={`/${item.toLowerCase()}`}>{item}</Link>
-              </li>
+              </motion.li>
             ))}
-            <li>
+            <motion.li
+              whileHover={{ scale: 1.1 }}
+              transition={{ type: 'spring', stiffness: 100 }}
+
+              className="hover:text-gray-700"
+            >
               <Link to="/login" className="block py-2">
-                login
+                Login
               </Link>
-            </li>
-            <li>
+            </motion.li>
+            <motion.li
+              whileHover={{ scale: 1.1 }}
+              transition={{ type: 'spring', stiffness: 100 }}
+
+              className="hover:text-gray-700">
               <Link to="/register" className="block py-2">
-                register
+                Register
               </Link>
-            </li>
+            </motion.li>
           </ul>
         </div>
       )}

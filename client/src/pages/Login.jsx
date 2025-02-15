@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import { motion } from 'motion/react'
-import { Lock, Mail, Eye, EyeOff, Type } from 'lucide-react'
+import { Lock, Mail, Eye, EyeOff, } from 'lucide-react'
 import { Button } from '@mantine/core'
+import { Link } from 'react-router-dom';
+
+
 
 const Login = () => {
 
@@ -12,6 +15,8 @@ const Login = () => {
         setIsEyeOpen(!isEyeOpen)
     }
 
+    
+
 
     return (
         <div className='bg-gray-100 h-screen flex justify-center items-center'>
@@ -20,27 +25,29 @@ const Login = () => {
                 <h1 className='text-center mb-5 text-2xl font-bold '>Welcome Back</h1>
 
                 <form className='space-y-8 w-96'>
-                    <div className='flex gap-2'>
-                        <Mail className='text-gray-500' />
-                        <input type="email" placeholder='Enter email..' className='focus:outline-none border-b border-gray-200 w-full' />
+                    <div className='relative flex gap-2'>
+                        <Mail className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500' />
+                        <input type="email" placeholder='Enter email..' className='focus:outline-none border-b border-gray-200 w-full pl-10' />
 
 
                     </div>
 
                     <div className='flex gap-2 relative' >
-                        <Lock className='text-gray-500' />
+                        <Lock className='text-gray-500 absolute left-3 top-1/2 transform -translate-y-1/2' />
 
                         <div onClick={handleEyeClick} className='absolute right-2'>
 
                             {isEyeOpen ? <Eye/> : <EyeOff/>} 
                         </div>
-                        <input type= { isEyeOpen ? "text" : "password" } placeholder='Enter password..' className='focus:outline-none border-b border-gray-200 w-full' />
+                        <input type= { isEyeOpen ? "text" : "password" } placeholder='Enter password..' className='focus:outline-none border-b border-gray-200 w-full pl-10' />
 
 
                     </div>
 
 
-                    <button className='bg-blue-500 rounded-2xl p-2 mt-2 w-full'>login</button>
+                    <Button fullWidth>Login</Button>
+
+                    <p className='flex justify-center text-gray-500'>don't have account ?  <Link to="/ragister" className='text-sky-500 hover:underline'>Ragister</Link></p>
 
 
 
