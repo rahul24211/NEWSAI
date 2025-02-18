@@ -26,7 +26,7 @@ function Navbar() {
 
         {/* Desktop menu */}
         <ul className="hidden md:flex gap-4">
-          {['Home', 'Categories', 'Channels', 'About'].map((item) => (
+          {['Home', 'Categories', 'Channels', 'About', 'reduxt', 'Loading'].map((item) => (
             <motion.li
               whileHover={{ scale: 1.1 }}
               transition={{ type: 'spring', stiffness: 100 }}
@@ -41,11 +41,11 @@ function Navbar() {
         {/* Mobile menu */}
         <div className="flex space-x-4 items-center justify-center">
           <Link to="/login" className="hidden md:block">
-            <Button variant='white'>login</Button>
+            <Button variant='white'>Login</Button>
           </Link>
 
           <Link to="/register" className="hidden md:block">
-            <Button variant='white'>register</Button>
+            <Button variant='white'>Register</Button>
           </Link>
 
           {/* Mobile menu button */}

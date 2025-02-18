@@ -8,14 +8,14 @@ import { Link } from 'react-router-dom';
 
 const Login = () => {
 
-    const [isEyeOpen , setIsEyeOpen] = useState(false)
+    const [isEyeOpen, setIsEyeOpen] = useState(false)
 
 
-    const handleEyeClick = ()=>{
+    const handleEyeClick = () => {
         setIsEyeOpen(!isEyeOpen)
     }
 
-    
+
 
 
     return (
@@ -37,20 +37,20 @@ const Login = () => {
 
                         <div onClick={handleEyeClick} className='absolute right-2'>
 
-                            {isEyeOpen ? <Eye/> : <EyeOff/>} 
+                            {isEyeOpen ? <Eye /> : <EyeOff />}
                         </div>
-                        <input type= { isEyeOpen ? "text" : "password" } placeholder='Enter password..' className='focus:outline-none border-b border-gray-200 w-full pl-10' />
+                        <input type={isEyeOpen ? "text" : "password"} placeholder='Enter password..' className='focus:outline-none border-b border-gray-200 w-full pl-10' />
 
 
                     </div>
 
 
-                    <Button fullWidth>Login</Button>
+                    <div className=''>
+                        <Button fullWidth>Login</Button>
+                        <Button fullWidth variant='filled' color='gray' className='mt-2'>Login with Google</Button>
 
-                    <p className='flex justify-center text-gray-500'>don't have account ?  <Link to="/ragister" className='text-sky-500 hover:underline'>Ragister</Link></p>
-
-
-
+                        <p className='flex justify-center text-gray-500 mt-2 gap-1'>don't have account ?  <Link to="/ragister" className='text-sky-500 hover:underline'>Ragister</Link></p>
+                    </div>
 
 
 

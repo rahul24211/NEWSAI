@@ -29,14 +29,14 @@ const Reg = () => {
                 <form className='space-y-8 w-96'>
                 <div className="relative flex gap-2">
                 <User className="text-gray-500 absolute left-3 top-1/2 transform -translate-y-1/2" />
-                        <input  type="text" placeholder='Enter username..'  className="pl-10 focus:outline-none border-b border-gray-200 w-full"   />
+                        <input  type="text" placeholder='Full Name'  className="pl-10 focus:outline-none border-b border-gray-200 w-full"   />
 
 
                     </div>
 
                     <div className="relative flex gap-2">
                         <Mail className='text-gray-500 absolute left-3 top-1/2 transform -translate-y-1/2' />
-                        <input type="email" placeholder='Enter email..' className="pl-10 focus:outline-none border-b border-gray-200 w-full" />
+                        <input type="email" placeholder='Email Address' className="pl-10 focus:outline-none border-b border-gray-200 w-full" />
 
 
                     </div>
