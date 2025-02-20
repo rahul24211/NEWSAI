@@ -5,50 +5,69 @@ import jwt from 'jsonwebtoken'
 
 
 
-export const login = async () => {
+export const login = async (req, res) => {
 
-   try {
-    const { password, email } = req.body
+    try {
+        const { password, email } = req.body
 
-    const user = await User.findOne(email)
+        const user = await User.findOne({ email })
 
-    if (!user) {
+        if (!user) {
 
-        return res.json({
-            status: 404,
-            message: "user is not registered, please ragister and try again"
+            return res.json({
+                status: 404,
+                message: "user is not registered, please ragister and try again"
+            })
+        }
+
+
+        const isMatch = await bcrypt.compare(password, user.password)
+
+        if (!isMatch) {
+            return res.json({
+                status: 401,
+                message: "password do not match,please try again!"
+            })
+        }
+
+
+        const token = jwt.sign({ id: user._id, name: user.name },
+            "this_is_string", { expiresIn: '1d' }
+        )
+
+        res.cookie('token', token, {
+            httpOnly: true
         })
+
+        res.status(200).json({
+            message: "login successfully"
+        })
+
+
+
+
+    } catch (error) {
+
     }
 
-
-    const isMatch = await bcrypt.compare(password,User.password)
-
-    if (!isMatch) {
-        res.json({
-            status : 401,
-            message : "password do not match,please try again!"
-        })
-    }
+}
 
 
-const token = jwt.sign({id : User._id, name : name},
-    "this_is_string",{expiresIn : '1d'}
-)
+export const verify = (req,res)=>{
 
-res.cookie('token', token, {
-    httpOnly :true
-})
+// console.log('verify wali' , req.user);
 
-res.status(200).json({
-    message : "login successfully"
-})
-
-
-
-
-   } catch (error) {
+if (!req.user) {
     
-   }
+} else {
+    return res.json({
+        status : 200,
+        authenticates : true,
+        id : req.user.id,
+        name : req.user.name
+    })
+}
+
 
 }
 
@@ -66,7 +85,7 @@ export const register = async (req, res) => {
 
             return res.json({
                 status: 404,
-                message: "User is already registered, please Login"
+                message: "User is already registered, Please Login"
             })
         }
 

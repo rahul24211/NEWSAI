@@ -3,6 +3,7 @@ import { Loader } from '@mantine/core';
 import { useSelector, useDispatch } from 'react-redux';
 import { Startloading,Stoploading } from '../redux/sclice/LodingSlice';
 
+
 const Loading = () => {
   const dispatch = useDispatch();
   const {loading} = useSelector((state) => state.loading); // Accessing loading from state

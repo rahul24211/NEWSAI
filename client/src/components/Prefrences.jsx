@@ -31,8 +31,9 @@ const Prefrences = () => {
       <h1 className='text-gray-800 font-semibold text-2xl'>Select Interests</h1>
 
       <div className='grid grid-cols-2 sm:grid-cols-3 gap-6 mt-5'>
-        {categories.map((categary) => (
+        {categories.map((categary,index) => (
           <motion.div
+          key={index}
 
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}

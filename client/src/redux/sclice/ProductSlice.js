@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios  from 'axios'
+import axios from 'axios'
 
 const initialState = {
     product: [],
@@ -29,7 +29,7 @@ const productSlice = createSlice({
         builder.addCase(fetchProduct.pending, (state) => {
 
             state.loading = true
-        }).addCase(fetchProduct.fulfilled, (state,action)=>{
+        }).addCase(fetchProduct.fulfilled, (state, action) => {
             state.product = action.payload
         })
 

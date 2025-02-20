@@ -10,6 +10,8 @@ import Loading from './pages/Loading';
 import { fetchProduct } from './redux/sclice/ProductSlice';
 import { useDispatch,useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { Toaster } from 'sonner';
+
 
 
 
@@ -18,25 +20,13 @@ import { useEffect } from 'react';
 
 const App = () => {
 
-const dispath = useDispatch()
 
-const {loading,product} = useSelector((state)=>state.product)
-
-console.log(loading,product);
-
-
-
-useEffect(()=>{
-
-dispath(fetchProduct())
-
-
-},[])
 
 
   return (
     <div>
       <Navbar />
+      <Toaster/>
       <Prefrences/>
       <Routes>
         <Route path='/login' element={<Login/>} />
