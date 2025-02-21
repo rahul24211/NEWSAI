@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'motion/react';
 import { CircleCheck } from 'lucide-react';
-import { Button } from '@mantine/core';
+import { Button, Center } from '@mantine/core';
 
 
 const Prefrences = () => {
@@ -28,12 +28,12 @@ const Prefrences = () => {
 
     <div className='h-screen flex flex-col justify-center items-center '>
 
-      <h1 className='text-gray-800 font-semibold text-2xl'>Select Interests</h1>
+      <h1 className='text-gray-800 font-bold text-4xl '>Select Your Interests</h1>
 
-      <div className='grid grid-cols-2 sm:grid-cols-3 gap-6 mt-5'>
-        {categories.map((categary,index) => (
+      <div className='grid grid-cols-2 sm:grid-cols-3 gap-6 mt-8'>
+        {categories.map((categary, index) => (
           <motion.div
-          key={index}
+            key={index}
 
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
@@ -47,8 +47,8 @@ const Prefrences = () => {
         ))}
 
 
-<Button className='shadow-md rounded-2xl px-6 py-2 text-center '>Save Preference</Button>
-      
+        <Button className='shadow-md rounded-2xl px-6 py-2 text-center'>Save Preference</Button>
+
 
 
       </div>

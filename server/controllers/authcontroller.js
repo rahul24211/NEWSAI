@@ -36,13 +36,17 @@ export const login = async (req, res) => {
         )
 
         res.cookie('token', token, {
+            
             httpOnly: true
         })
 
         res.status(200).json({
+            
+            preferences : user.preferences,
             message: "login successfully"
         })
 
+// console.log(user);
 
 
 
@@ -51,6 +55,9 @@ export const login = async (req, res) => {
     }
 
 }
+
+
+
 
 
 export const verify = (req,res)=>{
@@ -62,7 +69,7 @@ if (!req.user) {
 } else {
     return res.json({
         status : 200,
-        authenticates : true,
+        authenticated : true,
         id : req.user.id,
         name : req.user.name
     })

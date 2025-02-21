@@ -1,13 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from 'motion/react'
 import { Lock, Mail, Eye, EyeOff, } from 'lucide-react'
-import { Button,Loader } from '@mantine/core'
+import { Button, Loader } from '@mantine/core'
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { login } from './../redux/sclice/AuthSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import Prefrences from '../components/Prefrences';
+
 
 
 
@@ -16,9 +19,30 @@ const Login = () => {
 
     const dispatch = useDispatch()
 
-    const {loading} = useSelector((state)=>state.auth)
+    const { loading } = useSelector((state) => state.auth)
 
     const [isEyeOpen, setIsEyeOpen] = useState(false)
+
+    const { authenticated } = useSelector((state) => state.auth)
+
+    const navigate = useNavigate()
+
+
+    useEffect(() => {
+
+
+        if (authenticated && Prefrences.length > 0) {
+
+            navigate('/')
+
+        } else if (authenticated && Prefrences.length <= 0) {
+
+            navigate('/Prefrences')
+        }
+
+
+        
+    }, [authenticated])
 
 
     const handleEyeClick = () => {
@@ -33,8 +57,8 @@ const Login = () => {
             .email('This is not a vailed email'),
 
         password: z
-        .string()
-        .min(1,{message : 'Password is required'})
+            .string()
+            .min(1, { message: 'Password is required' })
 
     })
 
@@ -58,8 +82,8 @@ const Login = () => {
 
 
     // console.log(import.meta.env.VITE_API_URL);
-    
-    
+
+
 
 
 
@@ -73,7 +97,7 @@ const Login = () => {
 
                 <form className='space-y-5 w-96' onSubmit={handleSubmit(onSubmit)} >
                     <div className='relative flex '>
-                        <Mail className='absolute  top-1/2 transform -translate-y-1/2 text-gray-500'  />
+                        <Mail className='absolute  top-1/2 transform -translate-y-1/2 text-gray-500' />
                         <input type="email" placeholder='Enter email..' className='focus:outline-none border-b border-gray-200 w-full pl-8'
                             {...register("email")}
                         />
@@ -81,11 +105,11 @@ const Login = () => {
 
                     </div>
 
-                    
-                    {errors.email &&  <p  className='text-sm text-red-800'>{errors.email.message}</p>}
-                    
 
-                    
+                    {errors.email && <p className='text-sm text-red-800'>{errors.email.message}</p>}
+
+
+
 
                     <div className='flex relative' >
                         <Lock className='text-gray-500 absolute  top-1/2 transform -translate-y-1/2' />
@@ -100,7 +124,7 @@ const Login = () => {
 
                         />
 
-                        
+
 
 
                     </div>
@@ -109,10 +133,10 @@ const Login = () => {
 
                     <div className=''>
                         <Button type='submit' fullWidth>
-                            
-                           {loading ? <Loader size={20} color='white'/> : "Log-in" }
-                            
-                            </Button>
+
+                            {loading ? <Loader size={20} color='white' /> : "Log-in"}
+
+                        </Button>
                         <Button fullWidth variant='filled' color='gray' className='mt-2'>Login with Google</Button>
 
                         <p className='flex justify-center text-gray-500 mt-2 gap-1'>don't have account ?  <Link to="/register" className='text-sky-500 hover:underline'>Ragister</Link></p>
