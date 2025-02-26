@@ -6,27 +6,86 @@ import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { signup } from '../redux/sclice/AuthSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 const Reg = () => {
+
+
+    
+
+
+    
+
 
     const [isEyeOpen, setIsEyeOpen] = useState(false)
     const [isEyeOpen2, setIsEyeOpen2] = useState(false)
 
     const dispatch = useDispatch()
 
-    const { register, handleSubmit } = useForm()
+
 
 
     const onSubmit = (data) => {
         dispatch(signup(data))
 
         console.log(data);
-        
+
 
     }
 
     const { loading } = useSelector((state) => state.auth)
 
+    const passwordSchema = z.string().min(4, { message: 'Password should be at least 8 character long' }).superRefine((value, ctx) => {
+        // console.log(value)
+        if (!/[A-Z]/.test(value)) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: "Must required at least one uppercase case",
+            });
+        }
+        if (!/[a-z]/.test(value)) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: "Must required at least one lowercase case",
+            });
+        }
+        if (!/[0-9]/.test(value)) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: "Must required at least one digit",
+            });
+        }
+    })
+
+
+
+
+    const registerSchema = z.object({
+        name: z
+            .string()
+            .min(1, { message: ('This field has to be filled') }),
+
+        email: z
+            .string()
+            .min(1, { message: ('This field has to be filled') })
+            .email('This is not a valid email'),
+
+        password: passwordSchema,
+
+        confirmPassword: z.string()
+    })
+        .refine((data) => data.password === data.confirmPassword, {
+            message: 'Password do not match',
+            path: ['confirmPassword'],
+        });
+
+const { register, handleSubmit,formState : {errors}  } = useForm({
+
+    resolver : zodResolver(registerSchema)
+})
+
+console.log(errors);
 
 
     const handleEyeClick = () => {
@@ -58,6 +117,8 @@ const Reg = () => {
 
                     </div>
 
+                    {errors.name && <p className='text-sm text-red-800'>{errors.name.message}</p>}
+
                     <div className="relative flex gap-2">
                         <Mail className='text-gray-500 absolute left-3 top-1/2 transform -translate-y-1/2' />
                         <input type="email"
@@ -69,6 +130,8 @@ const Reg = () => {
 
 
                     </div>
+
+                    {errors.email && <p className='text-sm text-red-800'>{errors.email.message}</p>}
 
 
                     <div className='flex gap-2 relative' >
@@ -88,6 +151,8 @@ const Reg = () => {
 
                     </div>
 
+                    {errors.password && <p className='text-sm text-red-800'>{errors.password.message}</p>}
+
                     <div className='flex gap-2 relative' >
                         <Lock className="text-gray-500 absolute left-3 top-1/2 transform -translate-y-1/2" />
 
@@ -95,15 +160,17 @@ const Reg = () => {
 
                             {isEyeOpen2 ? <Eye /> : <EyeOff />}
                         </div>
-                        <input type={isEyeOpen2 ? "text" : "password"}
-                            name='confirm password'
-                            placeholder='confirm password..'
+                        <input type={isEyeOpen2 ? "text" : "assword"}
+                            name='confirmPassword'
+                            placeholder='Confirm Password..'
                             className="pl-10 focus:outline-none border-b border-gray-200 w-full"
-                            {...register('confirm password')}
+                            {...register('confirmPassword')}
                         />
 
 
                     </div>
+
+                    {errors.confirmPassword && <p className='text-sm text-red-800'>{errors.confirmPassword.message}</p>}
 
 
                     <div>

@@ -5,20 +5,21 @@ import Login from './pages/Login';
 import '@mantine/core/styles.css';
 import Reg from './pages/Reg';
 import Prefrences from './components/Prefrences';
-import Reduxt from './pages/reduxt';
-import Loading from './pages/Loading';
 // import Homepage from './pages/Homepage'
-import { fetchProduct } from './redux/sclice/ProductSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
 import { Toaster } from 'sonner';
 import { Suspense } from 'react';
-import { Loader } from 'lucide-react';
+import Footer from './components/Footer';
+
 
 const Homepage = lazy(() =>
   import('./pages/Homepage')
 )
+
+const Profile = lazy(() => import('./pages/Profile'))
 import ProtectedRoutes from './components/ProtectedRoutes';
+import LoadingSpinner from './components/LoadingSpinner';
+import PreferencesProtectetRoute from './components/PreferencesProtectetRoute';
+import About from './pages/About';
 
 
 
@@ -42,22 +43,24 @@ const App = () => {
 
       <Navbar />
       <Toaster />
-      <Suspense fallback={<div className='h-screen flex justify-center items-center'><Loader/></div>}>
+      <Suspense fallback={<LoadingSpinner />}>
         <Routes>
           <Route element={<ProtectedRoutes />}>
             <Route path='/' element={<Homepage />} />
-            <Route path='/Prefrences' element={<Prefrences />} />
+            <Route path='/profile' element={<Profile />} />
+            <Route element={<PreferencesProtectetRoute />}>
+              <Route path='/Prefrences' element={<Prefrences />} />
+            </Route>
           </Route>
-
+          <Route path='/about' element={<About />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Reg />} />
-          <Route path='/reduxt' element={<Reduxt />} />
-          <Route path='/Loading' element={<Loading />} />
+
 
 
         </Routes>
       </Suspense>
-
+      <Footer />
     </div>
 
 

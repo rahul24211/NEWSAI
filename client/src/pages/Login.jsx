@@ -9,39 +9,31 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { login } from './../redux/sclice/AuthSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import Prefrences from '../components/Prefrences';
-
-
 
 
 const Login = () => {
 
-
     const dispatch = useDispatch()
 
-    const { loading } = useSelector((state) => state.auth)
-
+    const { loading, authenticated,preferences } = useSelector((state) => state.auth)
     const [isEyeOpen, setIsEyeOpen] = useState(false)
-
-    const { authenticated } = useSelector((state) => state.auth)
-
     const navigate = useNavigate()
 
 
     useEffect(() => {
 
 
-        if (authenticated && Prefrences.length > 0) {
+        if (authenticated && preferences.length > 0) {
 
-            navigate('/')
+            navigate('/');
 
-        } else if (authenticated && Prefrences.length <= 0) {
+        } else if (authenticated && preferences.length <= 0 ) {
 
             navigate('/Prefrences')
         }
 
 
-        
+
     }, [authenticated])
 
 
@@ -61,16 +53,10 @@ const Login = () => {
             .min(1, { message: 'Password is required' })
 
     })
-
-
-
-
-
     const { register, handleSubmit, formState: { errors } } = useForm({
 
         resolver: zodResolver(loginSchema)
     })
-
 
     // console.log(errors);
 
@@ -79,16 +65,6 @@ const Login = () => {
         dispatch(login(data))
 
     }
-
-
-    // console.log(import.meta.env.VITE_API_URL);
-
-
-
-
-
-
-
     return (
         <div className='bg-gray-100 h-screen flex justify-center items-center'>
             <motion.div className='mx-w-md bg-white rounded-xl p-4 shadow-md' initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: .6 }} >
@@ -107,10 +83,6 @@ const Login = () => {
 
 
                     {errors.email && <p className='text-sm text-red-800'>{errors.email.message}</p>}
-
-
-
-
                     <div className='flex relative' >
                         <Lock className='text-gray-500 absolute  top-1/2 transform -translate-y-1/2' />
 
